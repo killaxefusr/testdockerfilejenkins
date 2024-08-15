@@ -9,13 +9,19 @@ pipeline {
         script {
           docker.image('maven:3.8.5-eclipse-temurin-16').inside('-u root:sudo') {
         echo 'start installing docker-ce in docker'
-
+        sh '''
+        apt-get update
+        apt-get -y install apt-transport-https ca-certificates curl software-properties-common git
+        curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
+        add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
+        apt-get update
+        apt-get -y install docker-ce wget unzip'''
 
             echo 'start building app'
         sh 'mkdir /tmp/maven/'
         sh 'wget https://github.com/boxfuse/boxfuse-sample-java-war-hello/archive/refs/heads/master.zip'
         sh 'unzip -d /tmp/maven/ master.zip'
-        sh 'cd /tmp/maven/'
+        sh 'cd /tmp/maven/boxfuse-sample-java-war-hello-master/'
         sh 'ls -liah'
         sh "sed -i 's/<source>1.6<\\/source>/<source>1.8<\\/source>/g' pom.xml"
         sh "sed -i 's/<target>1.6<\\/target>/<target>1.8<\\/target>/g' pom.xml"
@@ -25,6 +31,7 @@ pipeline {
         sh 'mvn package'
 
             echo 'building docker image by dockerfile and app_file'
+        sh 'wget https://raw.githubusercontent.com/killaxefusr/testdockerfilejenkins/main/Dockerfile'
         sh 'docker build -t maven_build:v$TAG_NUMBER .'
         sh 'docker tag maven_build:v$TAG_NUMBER 192.168.56.106:8123/repository/mydockerrepo/maven_build:$TAG_NUMBER'
         sh 'touch /etc/docker/daemon.json'
