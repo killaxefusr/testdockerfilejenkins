@@ -13,7 +13,8 @@ pipeline {
 
             echo 'start building app'
         sh 'mkdir /tmp/maven/'
-        sh 'git clone https://github.com/boxfuse/boxfuse-sample-java-war-hello /tmp/maven/'
+        sh 'wget https://github.com/boxfuse/boxfuse-sample-java-war-hello/archive/refs/heads/master.zip'
+        sh 'unzip -d /tmp/maven/ master.zip'
         sh 'cd /tmp/maven/'
         sh 'ls -liah'
         sh "sed -i 's/<source>1.6<\\/source>/<source>1.8<\\/source>/g' pom.xml"
