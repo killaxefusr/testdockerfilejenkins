@@ -11,6 +11,7 @@ pipeline {
           }
         }
       steps {
+        script {
         echo 'start installing docker-ce in docker'
         sh '''
         apt apt-get -y install apt-transport-https ca-certificates curl software-properties-common
@@ -19,25 +20,25 @@ pipeline {
         apt-get update
         apt-get -y install docker-ce'''
         }
-      steps {
+      script {
         echo 'start building app'
         git branch: 'main', url: 'https://github.com/boxfuse/boxfuse-sample-java-war-hello'
         sh "sed -i 's/<source>1.6<\\/source>/<source>1.8<\\/source>/g' pom.xml"
         sh "sed -i 's/<target>1.6<\\/target>/<target>1.8<\\/target>/g' pom.xml"
         sh "sed -i 's/<version>2.5<\\/version>/<version>3.2.3<\\/version>/g' pom.xml"
         }
-      steps {
+      script {
         echo 'building app_file in maven'
         sh 'mvn package'
         }
-      steps {
+      script {
         echo 'building docker image by dockerfile and app_file'
         sh 'docker build -t maven_build:v$TAG_NUMBER .'
         sh 'docker tag maven_build:v$TAG_NUMBER 192.168.56.106:8123/repository/mydockerrepo/maven_build:$TAG_NUMBER'
         sh 'touch /etc/docker/daemon.json'
         sh """echo '{"insecure-registries": ["http://192.168.56.106:8123"]}' > /etc/docker/daemon.json"""
         }
-      steps {
+      script {
         withCredentials([usernamePassword(credentialsId: 'nexusdocker', passwordVariable: 'nexusdockerPassword', usernameVariable: 'nexusdockerUser')]){
           echo 'start pushing with tag $TAG_NUMBER'
           sh '''
@@ -45,6 +46,7 @@ pipeline {
           BUILDKIT_NO_CLIENT_TOKEN=true docker push 192.168.56.106:8123/repository/mydockerrepo/maven_build:$TAG_NUMBER'''
           }
         }
+      }
       }
     
     stage('Run docker on ProdNode07') {
