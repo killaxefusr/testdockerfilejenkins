@@ -14,6 +14,7 @@ pipeline {
             echo 'start building app'
             cleanWs()
         sh 'git clone https://github.com/boxfuse/boxfuse-sample-java-war-hello/'
+        sh 'chown -R user0723study:user0723study ./boxfuse-sample-java-war-hello/'
         sh 'ls -liah'
         sh 'cd boxfuse-sample-java-war-hello/'
         sh 'ls -liah'
@@ -27,6 +28,7 @@ pipeline {
 
             echo 'building docker image by dockerfile and app_file'
         sh 'wget https://raw.githubusercontent.com/killaxefusr/testdockerfilejenkins/main/Dockerfile'
+        sh 'chown user0723study:user0723study ./boxfuse-sample-java-war-hello/target/hello-1.0.war'
         sh 'docker build -t maven_build:v$TAG_NUMBER .'
         sh 'docker tag maven_build:v$TAG_NUMBER 192.168.56.106:8123/repository/mydockerrepo/maven_build:$TAG_NUMBER'
         sh 'touch /etc/docker/daemon.json'
