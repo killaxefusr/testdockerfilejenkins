@@ -17,16 +17,14 @@ pipeline {
         curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
         add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
         apt-get update
-        apt-get -y install docker-ce 
-        EOF'''
+        apt-get -y install docker-ce'''
         }
       steps {
         echo 'start building app'
         git branch: 'main', url: 'https://github.com/boxfuse/boxfuse-sample-java-war-hello'
         sh '''sed -i 's/<source>1.6<\/source>/<source>1.8<\/source>/g' pom.xml \
         && sed -i 's/<target>1.6<\/target>/<target>1.8<\/target>/g' pom.xml \
-        && sed -i 's/<version>2.5<\/version>/<version>3.2.3<\/version>/g' pom.xml
-        EOF'''
+        && sed -i 's/<version>2.5<\/version>/<version>3.2.3<\/version>/g' pom.xml'''
         }
       steps {
         echo 'building app_file in maven'
@@ -44,8 +42,7 @@ pipeline {
           echo 'start pushing with tag $TAG_NUMBER'
           sh '''
           BUILDKIT_NO_CLIENT_TOKEN=true docker login  http://192.168.56.106:8123/repository/mydockerrepo -u "$nexusdockerUser" -p "$nexusdockerPassword"
-          BUILDKIT_NO_CLIENT_TOKEN=true docker push 192.168.56.106:8123/repository/mydockerrepo/maven_build:$TAG_NUMBER
-          EOF'''
+          BUILDKIT_NO_CLIENT_TOKEN=true docker push 192.168.56.106:8123/repository/mydockerrepo/maven_build:$TAG_NUMBER'''
           }
         }
       }
