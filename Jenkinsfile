@@ -2,7 +2,7 @@ pipeline {
   agent none
   
   stages {
-    stage('build app + docker container') {
+    stage('build app and docker container') {
       agent {
         docker {
           image 'maven:3.8.5-eclipse-temurin-16'
@@ -47,7 +47,7 @@ pipeline {
         }
       }
     
-    stage('Run docker on devbe-srv01') {
+    stage('Run docker on ProdNode07') {
       agent {
         label 'ProdNode07'}
       steps {
