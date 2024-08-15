@@ -14,6 +14,8 @@ pipeline {
             echo 'start building app'
         sh 'git clone https://github.com/boxfuse/boxfuse-sample-java-war-hello/'
         sh 'ls -liah'
+        sh 'cd boxfuse-sample-java-war-hello/'
+        sh 'ls -liah'
         sh "sed -i 's/<source>1.6<\\/source>/<source>1.8<\\/source>/g' pom.xml"
         sh "sed -i 's/<target>1.6<\\/target>/<target>1.8<\\/target>/g' pom.xml"
         sh "sed -i 's/<version>2.5<\\/version>/<version>3.2.3<\\/version>/g' pom.xml"
