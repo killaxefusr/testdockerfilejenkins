@@ -9,19 +9,13 @@ pipeline {
         script {
           docker.image('maven:3.8.5-eclipse-temurin-16').inside('-u root:sudo') {
         echo 'start installing docker-ce in docker'
-        sh '''
-        hostname
-        apt-get update
-        apt-get -y install apt-transport-https ca-certificates curl software-properties-common git
-        curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
-        add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
-        apt-get update
-        apt-get -y install docker-ce'''
+
 
             echo 'start building app'
         sh 'mkdir /tmp/maven/'
         sh 'git clone https://github.com/boxfuse/boxfuse-sample-java-war-hello /tmp/maven/'
         sh 'cd /tmp/maven/'
+        sh 'ls -liah'
         sh "sed -i 's/<source>1.6<\\/source>/<source>1.8<\\/source>/g' pom.xml"
         sh "sed -i 's/<target>1.6<\\/target>/<target>1.8<\\/target>/g' pom.xml"
         sh "sed -i 's/<version>2.5<\\/version>/<version>3.2.3<\\/version>/g' pom.xml"
