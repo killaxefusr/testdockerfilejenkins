@@ -10,6 +10,7 @@ pipeline {
           docker.image('maven:3.8.5-eclipse-temurin-16').inside('-u root:sudo') {
         echo 'start installing docker-ce in docker'
         sh '''
+        hostname
         apt-get -y install apt-transport-https ca-certificates curl software-properties-common
         curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
         add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
