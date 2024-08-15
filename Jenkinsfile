@@ -16,12 +16,13 @@ pipeline {
         sh 'ls -liah'
         sh 'cd boxfuse-sample-java-war-hello/'
         sh 'ls -liah'
-        sh "sed -i 's/<source>1.6<\\/source>/<source>1.8<\\/source>/g' pom.xml"
-        sh "sed -i 's/<target>1.6<\\/target>/<target>1.8<\\/target>/g' pom.xml"
-        sh "sed -i 's/<version>2.5<\\/version>/<version>3.2.3<\\/version>/g' pom.xml"
+        sh "sed -i 's/<source>1.6<\\/source>/<source>1.8<\\/source>/g' boxfuse-sample-java-war-hello/pom.xml"
+        sh "sed -i 's/<target>1.6<\\/target>/<target>1.8<\\/target>/g' boxfuse-sample-java-war-hello/pom.xml"
+        sh "sed -i 's/<version>2.5<\\/version>/<version>3.2.3<\\/version>/g' boxfuse-sample-java-war-hello/pom.xml"
 
             echo 'building app_file in maven'
-        sh 'mvn package'
+        sh 'mvn -f boxfuse-sample-java-war-hello/pom.xml'
+            
 
             echo 'building docker image by dockerfile and app_file'
         sh 'wget https://raw.githubusercontent.com/killaxefusr/testdockerfilejenkins/main/Dockerfile'
