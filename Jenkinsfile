@@ -5,12 +5,13 @@ pipeline {
     stage('build app and docker container') {
       agent {
         label 'DevNode08'}
-      steps {
-          docker{
+      docker{
             image 'maven:3.8.5-eclipse-temurin-16'
             args '-u root:sudo'
             reuseNode true
           }
+      steps {
+
         echo 'start installing git docker-ce in docker'
 
             echo 'start building app'
