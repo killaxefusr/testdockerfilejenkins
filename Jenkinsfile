@@ -9,7 +9,7 @@ pipeline {
         script {
           docker.image('maven:3.8.5-eclipse-temurin-16').inside('-u root:sudo') {
         echo 'start installing git docker-ce in docker'
-        sh 'RUN apt-get update'
+        sh 'apt-get update'
         sh 'apt-get -y install git'
 
             echo 'start building app'
