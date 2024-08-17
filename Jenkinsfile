@@ -46,7 +46,7 @@ pipeline {
         }
       }
       }
-      }
+
     
     stage('Run docker on ProdNode07') {
       agent {
