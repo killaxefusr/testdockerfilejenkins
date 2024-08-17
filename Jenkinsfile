@@ -14,7 +14,7 @@ pipeline {
 
             echo 'start building app'
             cleanWs()
-        sh 'git clone https://github.com/boxfuse/boxfuse-sample-java-war-hello/'
+        sh 'git clone https://github.com/boxfuse/boxfuse-sample-java-war-hello/ .'
         sh 'chown -R user0723study:user0723study ./boxfuse-sample-java-war-hello/'
         sh 'ls -liah'
         sh 'cd boxfuse-sample-java-war-hello/'
