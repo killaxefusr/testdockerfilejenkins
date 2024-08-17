@@ -7,13 +7,17 @@ pipeline {
         label 'DevNode08'}
       steps {
         script {
-          docker.image('maven:3.8.5-eclipse-temurin-16').inside('-u root:sudo') {
+          docker{
+            image 'maven:3.8.5-eclipse-temurin-16'
+            args '-u root:sudo'
+            reuseNode true
+          }
         echo 'start installing git docker-ce in docker'
 
             echo 'start building app'
             cleanWs()
             git 'https://github.com/boxfuse/boxfuse-sample-java-war-hello/'
-        sh 'chown -R user0723study:user0723study ./boxfuse-sample-java-war-hello/'
+        sh '''chown -R user0723study:user0723study ./boxfuse-sample-java-war-hello/'''
         sh 'ls -liah'
         sh 'cd boxfuse-sample-java-war-hello/'
         sh 'ls -liah'
