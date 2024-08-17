@@ -12,7 +12,7 @@ pipeline {
 
             echo 'start building app'
             cleanWs()
-            git(url: 'https://github.com/boxfuse/boxfuse-sample-java-war-hello/', branch: 'master')
+            git 'https://github.com/boxfuse/boxfuse-sample-java-war-hello/'
         sh 'chown -R user0723study:user0723study ./boxfuse-sample-java-war-hello/'
         sh 'ls -liah'
         sh 'cd boxfuse-sample-java-war-hello/'
