@@ -22,7 +22,11 @@ pipeline {
                         sh 'ls -liah'
                         checkout scm
                         sh 'ls -liah'
- sh '''BUILDKIT_NO_CLIENT_TOKEN=true docker login  http://192.168.56.106:8123/repository/mydockerrepo -u "$nexusdockerUser" -p "$nexusdockerPassword"'''
+withCredentials([usernamePassword(credentialsId: 'nexusdocker', passwordVariable: 'nexusdockerPassword', usernameVariable: 'nexusdockerUser')]){
+          echo 'start pushing with tag $TAG_NUMBER'
+          sh '''
+          BUILDKIT_NO_CLIENT_TOKEN=true docker login  http://192.168.56.106:8123/repository/mydockerrepo -u "$nexusdockerUser" -p "$nexusdockerPassword"'''
+          }
                     }
                 }
             }
