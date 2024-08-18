@@ -5,7 +5,7 @@ pipeline {
         stage('Build and Push Docker Image') {
             agent {
                 node {
-                    label 'DevNode06'
+                    label 'DevNode08'
                 }
             }
             steps {
