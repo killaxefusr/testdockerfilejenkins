@@ -20,8 +20,9 @@ label 'DevNode08'
                        //  sh 'rm -rf .??*'
                        // checkout scm
                         sh 'ls -liah'
-                    sh 'dockerd &'
+                    sh '''dockerd &'''
                     echo 'export DOCKER_HOST=unix://var/run/docker.sock'
+                    sh 'docker info'
 withCredentials([usernamePassword(credentialsId: 'nexusdocker', passwordVariable: 'nexusdockerPassword', usernameVariable: 'nexusdockerUser')]){
           echo 'start pushing with tag $TAG_NUMBER'
           sh '''
