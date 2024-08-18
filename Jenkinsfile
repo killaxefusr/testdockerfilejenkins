@@ -21,6 +21,7 @@ label 'DevNode08'
                        // checkout scm
                         sh 'ls -liah'
                     sh '''dockerd &'''
+                    sh 'ps aux'
                     echo 'export DOCKER_HOST=unix://var/run/docker.sock'
                     sh 'docker info'
 withCredentials([usernamePassword(credentialsId: 'nexusdocker', passwordVariable: 'nexusdockerPassword', usernameVariable: 'nexusdockerUser')]){
