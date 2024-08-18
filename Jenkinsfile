@@ -22,7 +22,7 @@ pipeline {
                         sh 'ls -liah'
                         checkout scm
                         sh 'ls -liah'
-                        sh 'docker info | grep -A 20 "Insecure Registries"'
+ sh '''BUILDKIT_NO_CLIENT_TOKEN=true docker login  http://192.168.56.106:8123/repository/mydockerrepo -u "$nexusdockerUser" -p "$nexusdockerPassword"'''
                     }
                 }
             }
