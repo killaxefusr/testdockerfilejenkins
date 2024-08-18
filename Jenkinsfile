@@ -6,7 +6,7 @@ pipeline {
             agent { 
     docker {
 label 'DevNode08'
-        image '192.168.56.106:8123/repository/mydockerrepo/mnv_dckr_builder:0.2'
+        image '192.168.56.106:8123/repository/mydockerrepo/mnv_dckr_builder:0.4'
         registryUrl 'http://192.168.56.106:8123/repository/mydockerrepo'
         registryCredentialsId 'nexusdocker'
         args '--privileged'
@@ -20,7 +20,8 @@ label 'DevNode08'
                         sh 'rm -rf .??*'
                         checkout scm
                         sh 'ls -liah'
-                    sh 'docker pull hello-world'
+                    sh 'dockerd &'
+                    echo 'export DOCKER_HOST=unix://var/run/docker.sock'
 withCredentials([usernamePassword(credentialsId: 'nexusdocker', passwordVariable: 'nexusdockerPassword', usernameVariable: 'nexusdockerUser')]){
           echo 'start pushing with tag $TAG_NUMBER'
           sh '''
