@@ -22,6 +22,7 @@ label 'DevNode08'
                         sh 'ls -liah'
                         checkout scm
                         sh 'ls -liah'
+                    sh 'docker pull maven:3.8.5-eclipse-temurin-16'
 withCredentials([usernamePassword(credentialsId: 'nexusdocker', passwordVariable: 'nexusdockerPassword', usernameVariable: 'nexusdockerUser')]){
           echo 'start pushing with tag $TAG_NUMBER'
           sh '''
