@@ -32,5 +32,3 @@ withCredentials([usernamePassword(credentialsId: 'nexusdocker', passwordVariable
             }
         }
     }
-}
-}
