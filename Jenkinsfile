@@ -12,7 +12,8 @@ pipeline {
                 script {
                     //подключение к личному репозиторию, подтягивание образа
                     docker.withRegistry('http://192.168.56.106:8123/repository/mydockerrepo', 'nexusdocker') {
-                    docker.image('192.168.56.106:8123/repository/mydockerrepo/maven_build:0.1').inside('-u root:sudo', '--insecure-registry=http://192.168.56.106:8123') {
+                    docker.image('192.168.56.106:8123/repository/mydockerrepo/maven_build:0.1').inside('-u root:sudo --insecure-registry=http://192.168.56.106:8123') {
+                        //необходим аппрув через администратора на использование таких методов
                         //очистка workspace, а затем подтягивание свежих артефактов с гита
                         sh 'pwd'
                         sh 'ls -liah'
