@@ -20,9 +20,14 @@ label 'DevNode08'
                        //  sh 'rm -rf .??*'
                        // checkout scm
                         sh 'ls -liah'
-                    sh '''dockerd &'''
+                   
+                    // Запускаем Docker daemon в фоновом режиме
+                    sh 'dockerd --host=unix:///var/run/docker.sock &'
+                    // Небольшая пауза, чтобы dockerd успел стартовать
+                    sh 'sleep 5'
                     sh 'ps aux'
-                    echo 'export DOCKER_HOST=unix://var/run/docker.sock'
+                    sh 'sleep 5'
+                    sh 'ps aux'
                     sh 'docker info'
 withCredentials([usernamePassword(credentialsId: 'nexusdocker', passwordVariable: 'nexusdockerPassword', usernameVariable: 'nexusdockerUser')]){
           echo 'start pushing with tag $TAG_NUMBER'
