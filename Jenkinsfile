@@ -3,18 +3,18 @@ pipeline {
 
     stages {
         stage('Build and Push Docker Image') {
-            agent {
-                node {
-                    label 'DevNode08'
-                }
-            }
+            agent { 
+    docker {
+label 'DevNode08'
+        image '192.168.56.106:8123/repository/mydockerrepo/mnv_dckr_builder:0.1'
+        registryUrl 'http://192.168.56.106:8123/repository/mydockerrepo'
+        registryCredentialsId 'nexusdocker'
+        args '-u root:sudo'
+    }
+}
             steps {
                 script {
                     //подключение к личному репозиторию, подтягивание образа
-                    docker.withRegistry('http://192.168.56.106:8123/repository/mydockerrepo', 'nexusdocker') {
-                    docker.image('192.168.56.106:8123/repository/mydockerrepo/mnv_dckr_builder:0.1').inside('-u root:sudo') {
-                        //необходим аппрув через администратора на использование таких методов
-                        //очистка workspace, а затем подтягивание свежих артефактов с гита
                         sh 'pwd'
                         sh 'ls -liah'
                         sh 'rm -rf *'
@@ -22,7 +22,6 @@ pipeline {
                         sh 'ls -liah'
                         checkout scm
                         sh 'ls -liah'
-                        sh 'docker ps -a'
 withCredentials([usernamePassword(credentialsId: 'nexusdocker', passwordVariable: 'nexusdockerPassword', usernameVariable: 'nexusdockerUser')]){
           echo 'start pushing with tag $TAG_NUMBER'
           sh '''
