@@ -16,9 +16,9 @@ label 'DevNode08'
                 script {
                     //подключение к личному репозиторию, подтягивание образа
                         sh 'pwd'
-                        sh 'rm -rf *'
-                        sh 'rm -rf .??*'
-                        checkout scm
+                       // sh 'rm -rf *'
+                       //  sh 'rm -rf .??*'
+                       // checkout scm
                         sh 'ls -liah'
                     sh 'dockerd &'
                     echo 'export DOCKER_HOST=unix://var/run/docker.sock'
