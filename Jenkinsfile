@@ -22,6 +22,7 @@ pipeline {
                         sh 'ls -liah'
                         checkout scm
                         sh 'ls -liah'
+                        sh 'docker ps -a'
 withCredentials([usernamePassword(credentialsId: 'nexusdocker', passwordVariable: 'nexusdockerPassword', usernameVariable: 'nexusdockerUser')]){
           echo 'start pushing with tag $TAG_NUMBER'
           sh '''
