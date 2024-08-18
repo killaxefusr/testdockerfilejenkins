@@ -20,6 +20,9 @@ pipeline {
                         sh 'ls -liah'
                         checkout scm
                         sh 'ls -liah'
+                        git branch: 'main', url: 'https://github.com/boxfuse/boxfuse-sample-java-war-hello'
+                        sh 'ls -liah'
+                        sh 'ls -liah boxfuse-sample-java-war-hello/'
                     }
                 }
             }
