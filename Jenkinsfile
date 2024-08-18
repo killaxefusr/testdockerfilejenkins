@@ -9,7 +9,7 @@ label 'DevNode08'
         image '192.168.56.106:8123/repository/mydockerrepo/mnv_dckr_builder:0.4'
         registryUrl 'http://192.168.56.106:8123/repository/mydockerrepo'
         registryCredentialsId 'nexusdocker'
-        args '--privileged'
+        args '--privileged --user root'
     }
 }
             steps {
