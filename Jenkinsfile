@@ -6,7 +6,7 @@ pipeline {
             agent { 
     docker {
 label 'DevNode08'
-        image '192.168.56.106:8123/repository/mydockerrepo/mnv_dckr_builder:0.1'
+        image '192.168.56.106:8123/repository/mydockerrepo/mnv_dckr_builder:0.2'
         registryUrl 'http://192.168.56.106:8123/repository/mydockerrepo'
         registryCredentialsId 'nexusdocker'
         args '-u root:sudo'
