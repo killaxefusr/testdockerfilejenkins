@@ -17,7 +17,6 @@ pipeline {
                 script {
 					//очистка workspace
 				    sh 'pwd'
-				sh 'chmod -R 777 .'
 				    sh 'rm -rf *'
 				    sh 'rm -rf .??*'
 				    checkout scm
@@ -30,7 +29,6 @@ pipeline {
 					sh "sed -i 's/<source>1.6<\\/source>/<source>1.8<\\/source>/g' ./boxfuse-sample-java-war-hello/pom.xml"
 					sh "sed -i 's/<target>1.6<\\/target>/<target>1.8<\\/target>/g' ./boxfuse-sample-java-war-hello/pom.xml"
 					sh "sed -i 's/<version>2.5<\\/version>/<version>3.2.3<\\/version>/g' ./boxfuse-sample-java-war-hello/pom.xml"
-					sh 'chmod -R 777 .'
 					sh 'ls -liah ./boxfuse-sample-java-war-hello/'
 					//собираем приложение
 					sh 'mvn -f ./boxfuse-sample-java-war-hello/pom.xml install'
@@ -44,7 +42,6 @@ pipeline {
 
                     //забираем докерфайл и билдим образ
 					echo 'building docker image by dockerfile and app_file'
-					sh 'wget https://raw.githubusercontent.com/killaxefusr/testdockerfilejenkins/main/Dockerfile'
 					sh 'chmod -R 777 .'
 					sh 'docker build -t maven_build:v$TAG_NUMBER .'
 					sh 'docker tag maven_build:v$TAG_NUMBER 192.168.56.106:8123/repository/mydockerrepo/maven_build:$TAG_NUMBER'
