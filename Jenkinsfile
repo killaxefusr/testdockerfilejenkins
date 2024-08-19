@@ -17,6 +17,7 @@ pipeline {
                 script {
 					//очистка workspace
 				    sh 'pwd'
+				sh 'chmod -R 777 .'
 				    sh 'rm -rf *'
 				    sh 'rm -rf .??*'
 				    checkout scm
