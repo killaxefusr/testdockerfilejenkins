@@ -33,7 +33,7 @@ pipeline {
 					sh 'ls -liah'
 					sh 'ls -liah ./boxfuse-sample-java-war-hello/'
 					//собираем приложение
-					sh 'mvn -f ./boxfuse-sample-java-war-hello/pom.xml'
+					sh 'mvn'
 					sh 'ls -liah'
 					
                     // Запускаем Docker daemon в фоновом режиме
