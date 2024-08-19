@@ -17,10 +17,10 @@ pipeline {
                 script {
 					//очистка workspace
 				    sh 'pwd'
-                    sh 'rm -rf *'
-                    sh 'rm -rf .??*'
-                    checkout scm
-                    sh 'ls -liah'
+				    sh 'rm -rf *'
+				    sh 'rm -rf .??*'
+				    checkout scm
+				    sh 'ls -liah'
 					
 					//скачиваем файлы приложения
 					sh "git clone 'https://github.com/boxfuse/boxfuse-sample-java-war-hello'"
@@ -28,7 +28,9 @@ pipeline {
 					sh "sed -i 's/<source>1.6<\\/source>/<source>1.8<\\/source>/g' ./boxfuse-sample-java-war-hello/pom.xml"
 					sh "sed -i 's/<target>1.6<\\/target>/<target>1.8<\\/target>/g' ./boxfuse-sample-java-war-hello/pom.xml"
 					sh "sed -i 's/<version>2.5<\\/version>/<version>3.2.3<\\/version>/g' ./boxfuse-sample-java-war-hello/pom.xml"
-                
+
+					sh 'ls -liah'
+					sh 'ls -liah ./boxfuse-sample-java-war-hello/'
 					//собираем приложение
 					sh 'mvn -f ./boxfuse-sample-java-war-hello/pom.xml'
 					sh 'ls -liah'
