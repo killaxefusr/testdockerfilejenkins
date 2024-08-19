@@ -75,10 +75,11 @@ pipeline {
 		}
 	}
     	post {
-        failure {agent {
-		label 'DevNode08'}
+        failure {
+		node {
+			label 'DevNode08'}
             // Команда, которая будет выполнена, если пайплайн завершится с ошибкой
-            sh 'chmod -R 777 .'
+            	sh 'chmod -R 777 .'
         }
     }	
     }
