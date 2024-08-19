@@ -24,6 +24,8 @@ pipeline {
 					
 					//скачиваем файлы приложения
 					sh "git clone 'https://github.com/boxfuse/boxfuse-sample-java-war-hello'"
+					sh 'chown -R user0723study:user0723study ./boxfuse-sample-java-war-hello/'
+			
             		// Edit the pom.xml file
 					sh "sed -i 's/<source>1.6<\\/source>/<source>1.8<\\/source>/g' ./boxfuse-sample-java-war-hello/pom.xml"
 					sh "sed -i 's/<target>1.6<\\/target>/<target>1.8<\\/target>/g' ./boxfuse-sample-java-war-hello/pom.xml"
