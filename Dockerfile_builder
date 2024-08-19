@@ -1,0 +1,24 @@
+# syntax=docker/dockerfile:1
+
+# Используем базовый образ Docker-in-Docker (dind)
+FROM docker:20.10-dind
+
+# Устанавливаем необходимые пакеты и Maven
+RUN apk update && apk add --no-cache \
+    maven \
+    openjdk11-jdk \
+    bash \
+    curl \
+    git
+
+# Настраиваем рабочую директорию
+WORKDIR /app
+
+# Устанавливаем переменную окружения для Maven
+ENV MAVEN_HOME /usr/share/maven
+
+# Запускаем Docker-in-Docker daemon
+ENTRYPOINT ["dockerd-entrypoint.sh"]
+
+# Устанавливаем команду по умолчанию
+CMD ["sh"]
