@@ -17,14 +17,13 @@ pipeline {
                 script {
 					//очистка workspace
 				    sh 'pwd'
-				    sh 'sudo rm -rf *'
-				    sh 'sudo rm -rf .??*'
+				    sh 'rm -rf *'
+				    sh 'rm -rf .??*'
 				    checkout scm
 				    sh 'ls -liah'
 					
 					//скачиваем файлы приложения
 					sh "git clone 'https://github.com/boxfuse/boxfuse-sample-java-war-hello'"
-					sh 'chown -R user0723study:user0723study ./boxfuse-sample-java-war-hello/'
 			
             		// Edit the pom.xml file
 					sh "sed -i 's/<source>1.6<\\/source>/<source>1.8<\\/source>/g' ./boxfuse-sample-java-war-hello/pom.xml"
@@ -46,7 +45,7 @@ pipeline {
                     //забираем докерфайл и билдим образ
 					echo 'building docker image by dockerfile and app_file'
 					sh 'wget https://raw.githubusercontent.com/killaxefusr/testdockerfilejenkins/main/Dockerfile'
-					sh 'chown user0723study:user0723study ./boxfuse-sample-java-war-hello/target/hello-1.0.war'
+					sh 'chmod -R 777 .'
 					sh 'docker build -t maven_build:v$TAG_NUMBER .'
 					sh 'docker tag maven_build:v$TAG_NUMBER 192.168.56.106:8123/repository/mydockerrepo/maven_build:$TAG_NUMBER'
 
