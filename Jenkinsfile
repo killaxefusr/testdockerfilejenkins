@@ -17,8 +17,8 @@ pipeline {
                 script {
 					//очистка workspace
 				    sh 'pwd'
-				    sh 'rm -rf *'
-				    sh 'rm -rf .??*'
+				    sh 'sudo rm -rf *'
+				    sh 'sudo rm -rf .??*'
 				    checkout scm
 				    sh 'ls -liah'
 					
