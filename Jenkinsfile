@@ -75,12 +75,9 @@ pipeline {
 		}
 	}
     	post {
-        failure {
-		node {'DevNode08'}
-		steps {
+        always {
             // Команда, которая будет выполнена, если пайплайн завершится с ошибкой
             	sh 'chmod -R 777 .'
 		}
-        }
     }	
     }
