@@ -21,7 +21,8 @@ pipeline {
 				    sh 'rm -rf .??*'
 				    checkout scm
 				    sh 'ls -liah'
-					
+					}
+		    script {
 					//скачиваем файлы приложения
 					sh "git clone 'https://github.com/boxfuse/boxfuse-sample-java-war-hello'"
 			
@@ -33,19 +34,22 @@ pipeline {
 					//собираем приложение
 					sh 'mvn -f ./boxfuse-sample-java-war-hello/pom.xml install'
 					sh 'ls -liah'
-					
+				}	
+		    script {
                     // Запускаем Docker daemon в фоновом режиме
                     sh 'dockerd --host=unix:///var/run/docker.sock &'
                     // Небольшая пауза, чтобы dockerd успел стартовать
                     sh 'sleep 10'
                     sh 'docker info'
-
+			    }
+		    script {
                     //забираем докерфайл и билдим образ
 					echo 'building docker image by dockerfile and app_file'
 					sh 'chmod -R 777 .'
 					sh 'docker build -t maven_build:v$TAG_NUMBER .'
 					sh 'docker tag maven_build:v$TAG_NUMBER 192.168.56.106:8123/repository/mydockerrepo/maven_build:$TAG_NUMBER'
-
+			    }
+		    script {
                     //логинимся и пушим в локальное репо созданный образ
 					withCredentials([usernamePassword(credentialsId: 'nexusdocker', passwordVariable: 'nexusdockerPassword', usernameVariable: 'nexusdockerUser')]){
 						echo 'start pushing with tag $TAG_NUMBER'
